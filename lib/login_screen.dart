@@ -14,9 +14,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isLogin = true;
   String? _errorMessage;
+  bool _isLoading = false;
 
   Future<void> _submit() async {
     setState(() {
+      _isLoading = true;
       _errorMessage = null;
     });
 
@@ -87,12 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
             const SizedBox(height: 12),
 
-            ElevatedButton(
-              onPressed: _submit,
-              child: Text(
-                _isLogin ? 'Log In' : 'Sign Up',
-              ),
-            ),
+          _isLoading
+              ? const CircularProgressIndicator()
+              : ElevatedButton(
+                  onPressed: _submit,
+                  child: Text(_isLogin ? 'Log In' : 'Sign Up'),
+                ),
 
             TextButton(
               onPressed: () {
